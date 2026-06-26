@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday MY DEAR MADAM JEE 🎉</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+overflow:hidden;
+background:linear-gradient(135deg,#ff4e50,#f9d423);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+text-align:center;
+color:white;
+}
+
+.container{
+z-index:2;
+}
+
+h1{
+font-size:55px;
+animation:glow 2s infinite alternate;
+}
+
+p{
+font-size:22px;
+margin-top:15px;
+}
+
+button{
+margin-top:25px;
+padding:15px 35px;
+font-size:20px;
+border:none;
+border-radius:50px;
+background:white;
+color:#ff4081;
+cursor:pointer;
+font-weight:bold;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+#surprise{
+display:none;
+animation:zoom 1.5s;
+}
+
+@keyframes glow{
+from{text-shadow:0 0 10px white;}
+to{text-shadow:0 0 35px yellow;}
+}
+
+@keyframes zoom{
+from{transform:scale(.2);opacity:0;}
+to{transform:scale(1);opacity:1;}
+}
+
+/* Balloons */
+.balloon{
+position:absolute;
+bottom:-150px;
+width:70px;
+height:90px;
+border-radius:50%;
+animation:float 10s linear infinite;
+}
+
+.balloon:after{
+content:"";
+position:absolute;
+width:2px;
+height:120px;
+background:white;
+left:50%;
+top:90px;
+}
+
+.red{background:#ff1744;left:10%;}
+.blue{background:#2979ff;left:30%;animation-delay:2s;}
+.green{background:#00e676;left:50%;animation-delay:4s;}
+.yellow{background:#ffea00;left:70%;animation-delay:1s;}
+.purple{background:#d500f9;left:90%;animation-delay:3s;}
+
+@keyframes float{
+0%{transform:translateY(0);}
+100%{transform:translateY(-130vh);}
+}
+
+canvas{
+position:absolute;
+top:0;
+left:0;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="balloon red"></div>
+<div class="balloon blue"></div>
+<div class="balloon green"></div>
+<div class="balloon yellow"></div>
+<div class="balloon purple"></div>
+
+<div class="container">
+
+<div id="gift">
+<h1>🎁</h1>
+<button onclick="showSurprise()">Open Your Surprise</button>
+</div>
+
+<div id="surprise">
+<h1>🎂 HAPPY BIRTHDAY MY DEAR MADAM JEE 🎂</h1>
+
+<p>
+May your life be filled with happiness,<br>
+success, love, and countless beautiful moments! ❤️
+</p>
+
+<h2 style="margin-top:20px;">🎉 Have an Amazing Day! VISHAKHA 🎉</h2>
+
+</div>
+
+</div>
+
+<script>
+function showSurprise(){
+document.getElementById("gift").style.display="none";
+document.getElementById("surprise").style.display="block";
+startConfetti();
+}
+
+// Confetti
+const canvas=document.getElementById("confetti");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+const pieces=[];
+
+for(let i=0;i<250;i++){
+pieces.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height-canvas.height,
+r:Math.random()*8+2,
+d:Math.random()*250,
+color:`hsl(${Math.random()*360},100%,50%)`,
+tilt:Math.random()*10-10
+});
+}
+
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+pieces.forEach(p=>{
+ctx.beginPath();
+ctx.fillStyle=p.color;
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fill();
+
+p.y+=2+Math.random()*3;
+p.x+=Math.sin(p.d);
+
+if(p.y>canvas.height){
+p.y=-20;
+p.x=Math.random()*canvas.width;
+}
+});
+
+requestAnimationFrame(draw);
+}
+
+function startConfetti(){
+draw();
+}
+</script>
+
+</body>
+</html>
